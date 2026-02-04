@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
 
 public class VehicleInventoryManager {
 
@@ -28,6 +29,15 @@ public class VehicleInventoryManager {
     public Optional<Vehicle> getVehicle(int vehicleID)
     {
         return Optional.ofNullable(vehicles.get(vehicleID));
+    }
+    public void setReservationRepository(ReservationRepository reservationRepository)
+    {
+        this.reservationRepository=reservationRepository;
+    }
+    public ReentrantLock lockForVehicle(int vehicleId)
+    {
+        vehicleLocks.putIfAbsent(vehicleId,new ReentrantLock());
+        return vehicleLocks.get(vehicleId);
     }
     // ---------------- Availability Check ------------
 
@@ -82,6 +92,32 @@ public class VehicleInventoryManager {
         }
     }
     // --------------- Atomic Release -----------------
+    public void release(int vehicleId,int reservationId)
+    {
+        ReentrantLock lock=lockForVehicle(vehicleId);
+        lock.lock();
+        try{
+            List<Integer> ids=vehicleBookingIds.get(vehicleId);
+            if(ids!=null)
+            {
+                ids.remove(Integer.valueOf(reservationId));
+            }
+            List<Integer> stillBooked=vehicleBookingIds.get(vehicleId);
+            if(stillBooked==null || stillBooked.isEmpty())
+            {
+                vehicles.get(vehicleId).setVehicleStatus(VehicleStatus.AVAILABLE);
+            }
+        }
+        finally {
+            lock.unlock();
+        }
+    }
 
+    // --------------- Search --------------------------
+
+    public List<Vehicle> getAvailableVehicles(VehicleType vehicleType,LocalDate from,LocalDate to)
+    {
+        return vehicles.values().stream().filter(v->v.getVehicleType()==vehicleType).filter(v->isAvailable(v.getVehicleID(),from,to)).collect(Collectors.toList());
+    }
 
 }
