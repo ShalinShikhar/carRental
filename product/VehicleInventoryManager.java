@@ -59,9 +59,9 @@ public class VehicleInventoryManager {
         }
         for(int reservationID : reservationIds)
         {
-            Reservation reservation=reservationRepository.findById(reservationID);
-            LocalDate bookedFrom=reservation.getDateBookedFrom();
-            LocalDate bookedTill=reservation.getDateBookedTo();
+            Optional<Reservation> reservation=reservationRepository.findById(reservationID);
+            LocalDate bookedFrom= reservation.get().getDateBookedFrom();
+            LocalDate bookedTill= reservation.get().getDateBookedTo();
             DateInterval bookInterval=new DateInterval(bookedFrom,bookedTill);
             if(bookInterval.overlaps(requested))
             {
