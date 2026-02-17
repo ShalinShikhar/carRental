@@ -20,6 +20,9 @@ public abstract class Vehicle {
         this.status= VehicleStatus.AVAILABLE;
     }
 
+    // Abstract method for calculating rental fee
+    public abstract double calculateRentalFee(int days);
+
     public String getRegisterationNumber() {
         return registerationNumber;
     }
