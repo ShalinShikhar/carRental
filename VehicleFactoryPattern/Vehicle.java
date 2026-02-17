@@ -1,0 +1,46 @@
+package VehicleFactoryPattern;
+
+import CommonEnums.ReservationEnums.ReservationStatus;
+import CommonEnums.VehicleEnums.VehicleStatus;
+import CommonEnums.VehicleEnums.VehicleType;
+
+public abstract class Vehicle {
+
+    private String registerationNumber;
+    private String model;
+    private VehicleType type;
+    private VehicleStatus status;
+    private double baseRentalPrice;
+
+    public Vehicle(String registerationNumber, String model, VehicleType type, double baseRentalPrice) {
+        this.registerationNumber = registerationNumber;
+        this.model = model;
+        this.type = type;
+        this.baseRentalPrice = baseRentalPrice;
+        this.status= VehicleStatus.AVAILABLE;
+    }
+
+    public String getRegisterationNumber() {
+        return registerationNumber;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public VehicleType getType() {
+        return type;
+    }
+
+    public VehicleStatus getStatus() {
+        return status;
+    }
+
+    public double getBaseRentalPrice() {
+        return baseRentalPrice;
+    }
+
+
+
+
+}
