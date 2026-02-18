@@ -27,6 +27,26 @@ public abstract class Vehicle {
         return registerationNumber;
     }
 
+    public void setRegisterationNumber(String registerationNumber) {
+        this.registerationNumber = registerationNumber;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public void setStatus(VehicleStatus status) {
+        this.status = status;
+    }
+
+    public void setType(VehicleType type) {
+        this.type = type;
+    }
+
+    public void setBaseRentalPrice(double baseRentalPrice) {
+        this.baseRentalPrice = baseRentalPrice;
+    }
+
     public String getModel() {
         return model;
     }
