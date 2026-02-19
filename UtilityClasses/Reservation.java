@@ -44,4 +44,34 @@ public class Reservation {
             vehicle.setStatus(VehicleStatus.RESERVED);
         }
     }
+    public void startRental()
+    {
+        if(status==ReservationStatus.CONFIRMED)
+        {
+            status=ReservationStatus.IN_PROGRESS;
+            vehicle.setStatus(VehicleStatus.RENTED);
+        }
+    }
+    public void completeRental() {
+        if (status == ReservationStatus.IN_PROGRESS) {
+            status = ReservationStatus.COMPLETED;
+            vehicle.setStatus(VehicleStatus.AVAILABLE);
+        }
+    }
+
+    public void cancelReservation() {
+        if (status == ReservationStatus.PENDING
+                || status == ReservationStatus.CONFIRMED) {
+            status = ReservationStatus.CANCELED;
+            vehicle.setStatus(VehicleStatus.AVAILABLE);
+        }
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public double getTotalAmount() {
+        return totalAmount;
+    }
 }
