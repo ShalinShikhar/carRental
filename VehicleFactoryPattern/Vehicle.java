@@ -23,7 +23,7 @@ public abstract class Vehicle {
     // Abstract method for calculating rental fee
     public abstract double calculateRentalFee(int days);
 
-    public String getRegisterationNumber() {
+    public String getRegistrationNumber() {
         return registerationNumber;
     }
 

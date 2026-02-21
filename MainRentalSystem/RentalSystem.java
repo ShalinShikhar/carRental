@@ -7,6 +7,7 @@ import UtilityClasses.User;
 import VehicleFactoryPattern.Vehicle;
 import VehicleFactoryPattern.VehicleFactory;
 import paymentStratergyPattern.PaymentProcessor;
+import paymentStratergyPattern.PaymentStratergy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -107,7 +108,7 @@ public class RentalSystem {
         return null;
     }
     public boolean processPayment(
-            int reservationId, PaymentStrategy paymentStrategy){
+            int reservationId, PaymentStratergy paymentStrategy){
         Reservation reservation=reservationManager.getReservation(reservationId);
         if(reservation!=null){
             boolean result=paymentProcessor.processPayment(reservation.getTotalAmount(),paymentStrategy);

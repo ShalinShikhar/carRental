@@ -32,7 +32,7 @@ public class RentalStore {
     }
     public void addVehicle(Vehicle vehicle)
     {
-        vehicles.put(vehicle.getRegisterationNumber(),vehicle);
+        vehicles.put(vehicle.getRegistrationNumber(),vehicle);
     }
     public void removeVehicle(String registrationNumber) {
         vehicles.remove(registrationNumber);
@@ -47,7 +47,7 @@ public class RentalStore {
     {
         return vehicles.get(registerationNumber);
     }
-    public Map<String,Vehicle> getAllVehicle()
+    public Map<String,Vehicle> getAllVehicles()
     {
         return vehicles;
     }
